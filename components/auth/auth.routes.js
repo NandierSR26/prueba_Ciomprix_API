@@ -2,7 +2,7 @@ const { Router } = require('express')
 const { check } = require('express-validator')
 const { verifyIfEmailExists } = require('../../helpers/db-validators')
 const { validateFields } = require('../../middleware/validateFields')
-const { register } = require('./authController')
+const { register, login } = require('./authController')
 
 const router = Router()
 
@@ -12,6 +12,11 @@ router.post('/auth/register', [
     check('email', 'The provided E-mail is not valid').isEmail().custom(verifyIfEmailExists),
     check('password', 'Password should be at least 6 chars long').isLength({ min: 6 }),
     validateFields
-], register)
+], register);
+
+router.post('/auth/login', [
+    check('email', 'The provided E-mail is not valid').isEmail(),
+    validateFields
+], login);
 
 module.exports = router

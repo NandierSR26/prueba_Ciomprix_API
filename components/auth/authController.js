@@ -29,6 +29,35 @@ const register = async(req, res) => {
     }
 }
 
+const login = async(req, res) => {
+    const { email, password } = req.body;
+
+    const user = await Users.findOne({ email });
+    if(!user) {
+        return res.status(400).send({
+            ok: false,
+            msg: 'The user not exist'
+        })
+    }
+
+    const validPassword = bcrypt.compareSync(password, user.password);
+    if(!validPassword){
+        return res.status(401).send({
+            ok: false,
+            msg: 'password is wrong'
+        })
+    }
+
+    const token = await generateJWT(user.id)
+
+    return res.status(200).send({
+        ok: true,
+        msg: 'User authenticated successfully',
+        token
+    })
+}
+
 module.exports = {
-    register
+    register,
+    login
 }

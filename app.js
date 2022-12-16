@@ -2,10 +2,13 @@ const express = require('express');
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
 require('dotenv').config({path: '.env'})
-const indexRouter = require('./routes')
+const indexRouter = require('./routes');
+const { conectarDB } = require('./database/db');
 
 const app = express();
 const port = process.env.PORT
+
+conectarDB();
 
 app.use(express.json())
 
