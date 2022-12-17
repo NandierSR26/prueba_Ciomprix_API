@@ -1,6 +1,5 @@
 const Users = require("./Users")
 const bcrypt = require('bcrypt');
-const { disconnect } = require("mongoose");
 const { uploadFile } = require("../../services/uploadFile");
 
 const getUsers = async (req, res) => {
@@ -32,7 +31,6 @@ const getUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    
     let avatar
     try {
         const { id } = req.params
