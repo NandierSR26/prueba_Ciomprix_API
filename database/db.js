@@ -3,9 +3,7 @@ const mongoose = require('mongoose');
 const conectarDB = async () => {
     try {
         mongoose.set('strictQuery', false)
-        mongoose.connect(process.env.MONGODB_URL, {
-            useNewUrlParser: true
-        })
+        mongoose.connect(process.env.MONGODB_URL)
         console.log('db online');
     } catch (error) {
         console.log(error);
