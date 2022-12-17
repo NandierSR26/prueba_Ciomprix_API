@@ -57,7 +57,21 @@ const login = async(req, res) => {
     })
 }
 
+const revalidateToken = async(req, res) => {
+    const { uid } = req.user
+
+    const user = await Users.findById(uid)
+
+    const token = await generateJWT(uid);
+    return res.status(200).send({
+        ok: true,
+        token,
+        user
+    })
+}
+
 module.exports = {
     register,
-    login
+    login,
+    revalidateToken
 }

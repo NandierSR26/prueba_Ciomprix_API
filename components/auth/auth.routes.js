@@ -2,7 +2,8 @@ const { Router } = require('express')
 const { check } = require('express-validator')
 const { verifyIfEmailExists } = require('../../helpers/db-validators')
 const { validateFields } = require('../../middleware/validateFields')
-const { register, login } = require('./authController')
+const { validateJWT } = require('../../middleware/validateJWT')
+const { register, login, revalidateToken } = require('./authController')
 
 const router = Router()
 
@@ -18,5 +19,7 @@ router.post('/auth/login', [
     check('email', 'The provided E-mail is not valid').isEmail(),
     validateFields
 ], login);
+
+router.get('/auth/renew', validateJWT, revalidateToken );
 
 module.exports = router
