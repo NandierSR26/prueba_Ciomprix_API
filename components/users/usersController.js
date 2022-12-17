@@ -74,7 +74,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const {id} = req.params
 
-    if(req.user !== id) {
+    if(req.user.uid !== id) {
         return res.status(401).send({
             ok: false,
             msg: 'Not authorized'
