@@ -32,6 +32,7 @@ const getUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
+    
     let avatar
     try {
         const { id } = req.params
