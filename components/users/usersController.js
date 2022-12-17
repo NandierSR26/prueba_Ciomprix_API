@@ -37,7 +37,7 @@ const updateUser = async (req, res) => {
         const { id } = req.params
         const { password, ...rest } = req.body
 
-        if(req.user !== id) {
+        if(req.user.uid !== id) {
             return res.status(401).send({
                 ok: false,
                 msg: 'Not authorized'
